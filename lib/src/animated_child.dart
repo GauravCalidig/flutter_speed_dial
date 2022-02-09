@@ -88,15 +88,12 @@ class AnimatedChild extends AnimatedWidget {
           padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
           margin: childMargin,
           decoration: BoxDecoration(
-            color: labelBackgroundColor ??
-                (dark ? Colors.grey[800] : Colors.grey[50]),
+            color: labelBackgroundColor ?? (dark ? Colors.grey[800] : Colors.grey[50]),
             borderRadius: const BorderRadius.all(Radius.circular(6.0)),
             boxShadow: labelShadow ??
                 [
                   BoxShadow(
-                    color: dark
-                        ? Colors.grey[900]!.withOpacity(0.7)
-                        : Colors.grey.withOpacity(0.7),
+                    color: dark ? Colors.grey[900]!.withOpacity(0.7) : Colors.grey.withOpacity(0.7),
                     offset: const Offset(0.8, 0.8),
                     blurRadius: 2.4,
                   )
@@ -107,47 +104,17 @@ class AnimatedChild extends AnimatedWidget {
       );
     }
 
-    Widget button = ScaleTransition(
-        scale: animation,
-        child: FloatingActionButton(
-          key: btnKey,
-          heroTag: heroTag,
-          onPressed: _performAction,
-          backgroundColor:
-              backgroundColor ?? (dark ? Colors.grey[800] : Colors.grey[50]),
-          foregroundColor:
-              foregroundColor ?? (dark ? Colors.white : Colors.black),
-          elevation: elevation ?? 6.0,
-          child: child,
-          shape: shape,
-        ));
-
     List<Widget> children = [
       if (label != null || labelWidget != null)
         ScaleTransition(
           scale: animation,
           child: Container(
-            padding: (child == null)
-                ? const EdgeInsets.symmetric(vertical: 8)
-                : null,
+            padding: (child == null) ? const EdgeInsets.symmetric(vertical: 8) : null,
             key: (child == null) ? btnKey : null,
             child: buildLabel(),
           ),
         ),
-      if (child != null)
-        Container(
-          padding: childPadding,
-          height: buttonSize.height,
-          width: buttonSize.width,
-          child: (onLongPress == null)
-              ? button
-              : FittedBox(
-                  child: GestureDetector(
-                    onLongPress: () => _performAction(true),
-                    child: button,
-                  ),
-                ),
-        )
+      if (child != null) child!,
     ];
 
     Widget _buildColumnOrRow(bool isColumn,
@@ -159,15 +126,13 @@ class AnimatedChild extends AnimatedWidget {
           ? Column(
               mainAxisSize: mainAxisSize ?? MainAxisSize.max,
               mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
-              crossAxisAlignment:
-                  crossAxisAlignment ?? CrossAxisAlignment.center,
+              crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
               children: children,
             )
           : Row(
               mainAxisSize: mainAxisSize ?? MainAxisSize.max,
               mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
-              crossAxisAlignment:
-                  crossAxisAlignment ?? CrossAxisAlignment.center,
+              crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
               children: children,
             );
     }
@@ -178,8 +143,7 @@ class AnimatedChild extends AnimatedWidget {
             child: _buildColumnOrRow(
               useColumn,
               mainAxisSize: MainAxisSize.min,
-              children:
-                  switchLabelPosition ? children.reversed.toList() : children,
+              children: switchLabelPosition ? children.reversed.toList() : children,
             ),
           )
         : Container();
